@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    <main>
+        <div class="row g-5">
+            <div class="col-4">
+                <h2>Blogs list:</h2>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{{ path('blog_new') }}">New</a>
+                    </li>
+                </ul>
+                <ul>
+                    {% for blog in blogs %}
+                        <li><span>{{ blog.title }}</span> - {{ blog.createdAt | date('d.m.Y H:i') }}</li>
+                    {% endfor %}
+                </ul>
+                {% if blogs is empty %}
+                    <p><span class="text-muted">No blogs</span></p>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+{% endblock %}

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Blog;
+use App\Repository\BlogRepository;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -14,6 +15,21 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class BlogController extends AbstractController
 {
+
+
+    /**
+     * @Route("/", name="blog_list")
+     */
+    public function list(BlogRepository $blogRepository): Response
+    {
+        $blogs = $blogRepository->findAll();
+
+        return $this->render('blog/list.html.twig', [
+            'blogs' => $blogs,
+        ]);
+    }
+
+
     /**
      * @Route("/new-blog", name="blog_new")
      */
@@ -38,7 +54,7 @@ class BlogController extends AbstractController
             $entityManager->persist($blog);
             $entityManager->flush();
 
-            return $this->redirectToRoute('blog_new');
+            return $this->redirectToRoute('blog_list');
         }
 
         return $this->renderForm('blog/new.html.twig', [
