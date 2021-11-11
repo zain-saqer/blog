@@ -3,9 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\BlogRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=BlogRepository::class)
@@ -33,7 +34,6 @@ class Blog
     private $body;
 
     /**
-     * @Assert\NotBlank
      * @ORM\Column(type="datetime_immutable")
      */
     private $createdAt;
@@ -67,12 +67,12 @@ class Blog
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
 
