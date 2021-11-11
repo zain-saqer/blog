@@ -29,6 +29,20 @@ class BlogController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/b/{id}", name="blog_show")
+     */
+    public function show(BlogRepository $blogRepository, string $id): Response
+    {
+        $blog = $blogRepository->find($id);
+        if ($blog === null)
+            throw $this->createNotFoundException();
+
+        return $this->render('blog/show.html.twig', [
+            'blog' => $blog,
+        ]);
+    }
+
 
     /**
      * @Route("/new-blog", name="blog_new")

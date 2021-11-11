@@ -84,11 +84,37 @@ class BlogControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/');
         $this->assertResponseIsSuccessful();
-        $names = $crawler->filter('ul > li > span')->each(function (Crawler $node, $i) {
+        $names = $crawler->filter('ul > li > a')->each(function (Crawler $node, $i) {
             return $node->text();
         });
 
         self::assertTrue(in_array('Title', $names));
         self::assertTrue(in_array('Title 2', $names));
+    }
+
+    public function testShow(): void
+    {
+        $client = static::createClient();
+
+        $entityManager = self::getContainer()->get(EntityManagerInterface::class);
+
+        $client->request('GET', '/b/123');
+        self::assertEquals(404, $client->getResponse()->getStatusCode());
+
+        //test list populated list
+        $blog = new Blog();
+        $blog->setBody("Body");
+        $blog->setTitle("Title");
+        $blog->setCreatedAt(new DateTimeImmutable());
+        $entityManager->persist($blog);
+
+        $entityManager->flush();
+
+        $crawler = $client->request('GET', "/b/{$blog->getId()}");
+        $this->assertResponseIsSuccessful();
+
+        self::assertEquals("Title", $crawler->filter('.blog-title')->first()->text());
+        self::assertEquals("Body", $crawler->filter('.blog-body')->first()->text());
+        self::assertEquals($blog->getCreatedAt()->format("d.m.Y H:i"), $crawler->filter('.blog-date')->first()->text());
     }
 }

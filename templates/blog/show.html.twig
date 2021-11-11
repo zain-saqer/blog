@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    <main>
+        <div class="row g-5">
+            <div class="col-4">
+                <h2 class="blog-title">{{ blog.title }}</h2>
+                <p class="blog-date text-muted mb-3">{{ blog.createdAt | date('d.m.Y H:i') }}</p>
+                <p class="blog-body">{{ blog.body }}</p>
+            </div>
+        </div>
+    </main>
+{% endblock %}

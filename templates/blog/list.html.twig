@@ -11,7 +11,8 @@
                 </ul>
                 <ul>
                     {% for blog in blogs %}
-                        <li><span>{{ blog.title }}</span> - {{ blog.createdAt | date('d.m.Y H:i') }}</li>
+                        <li><a href="{{ path('blog_show', {'id': blog.id}) }}">{{ blog.title }}</a> <span
+                                    class="text-muted">{{ blog.createdAt | date('d.m.Y H:i') }}</span></li>
                     {% endfor %}
                 </ul>
                 {% if blogs is empty %}
