@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use App\Repository\BlogRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=BlogRepository::class)
+ * @UniqueEntity("title")
  */
 class Blog
 {
@@ -18,16 +21,19 @@ class Blog
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $title;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="text")
      */
     private $body;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="datetime_immutable")
      */
     private $createdAt;
