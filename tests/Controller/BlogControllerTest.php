@@ -21,14 +21,12 @@ class BlogControllerTest extends WebTestCase
         $button = $crawler->selectButton('New');
         $form = $button->form();
 
-        // test sending invalid form
         $client->submit($form, [
             'form[title]' => '',
             'form[body]' => '',
         ]);
         self::assertEquals(422, $client->getResponse()->getStatusCode());
 
-        // test sending valid form
         $client->submit($form, [
             'form[title]' => 'Title',
             'form[body]' => 'Body',
@@ -40,14 +38,12 @@ class BlogControllerTest extends WebTestCase
         $button = $crawler->selectButton('New');
         $form = $button->form();
 
-        // test send duplicate freelancer name
         $client->submit($form, [
             'form[title]' => 'Title',
             'form[body]' => 'Body',
         ]);
         self::assertEquals(422, $client->getResponse()->getStatusCode());
 
-        // test submit valid form
         $client->submit($form, [
             'form[title]' => 'Title 1',
             'form[body]' => 'Body',
@@ -61,13 +57,11 @@ class BlogControllerTest extends WebTestCase
 
         $entityManager = self::getContainer()->get(EntityManagerInterface::class);
 
-        //test empty list
         $crawler = $client->request('GET', '/');
         $this->assertResponseIsSuccessful();
         $text = $crawler->filter('p > span')->first()->text();
         self::assertEquals("No blogs", $text);
 
-        //test list populated list
         $blog = new Blog();
         $blog->setBody("Body");
         $blog->setTitle("Title");
@@ -101,7 +95,6 @@ class BlogControllerTest extends WebTestCase
         $client->request('GET', '/b/123');
         self::assertEquals(404, $client->getResponse()->getStatusCode());
 
-        //test list populated list
         $blog = new Blog();
         $blog->setBody("Body");
         $blog->setTitle("Title");
