@@ -1,9 +1,15 @@
 {% extends "base.html.twig" %}
 {% block body %}
     <main>
-        <div class="row g-5">
-            <div class="col-4">
-                <h2>New blog</h2>
+        <div class="row justify-content-md-center">
+            <div class="col-6">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('blog_list') }}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">New blog</li>
+                    </ol>
+                </nav>
+                <h2 class="mb-4">New blog</h2>
                 {{ form(form) }}
             </div>
         </div>

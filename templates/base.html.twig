@@ -15,11 +15,15 @@
         {# {{ encore_entry_link_tags('app') }} #}
     {% endblock %}
 
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <title>{% block title %}Micro-blog!{% endblock %}</title>
 </head>
 <body>
+<nav class="navbar navbar-dark bg-dark mb-3">
+    <div class="container">
+        <a class="navbar-brand mb-0 h1" href="{{ path('blog_list') }}">Micro-Blog</a>
+    </div>
+</nav>
 <div class="container">
-    <h1 class="mb-3">Micro Blog</h1>
     {% block body %}{% endblock %}
 </div>
 <!-- Optional JavaScript; choose one of the two! -->

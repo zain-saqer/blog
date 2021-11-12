@@ -1,11 +1,17 @@
 {% extends "base.html.twig" %}
 {% block body %}
     <main>
-        <div class="row g-5">
-            <div class="col-4">
+        <div class="row justify-content-md-center">
+            <div class="col-6">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('blog_list') }}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">-</li>
+                    </ol>
+                </nav>
                 <h2 class="blog-title">{{ blog.title }}</h2>
                 <p class="blog-date text-muted mb-3">{{ blog.createdAt | date('d.m.Y H:i') }}</p>
-                <p class="blog-body">{{ blog.body }}</p>
+                <pre class="blog-body">{{ blog.body }}</pre>
             </div>
         </div>
     </main>

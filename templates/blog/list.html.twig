@@ -1,10 +1,27 @@
 {% extends "base.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style>
+        .toolbar {
+            border: 1px solid #eee;
+            border-radius: 3px;
+        }
+
+        .date {
+            font-size: 12px;
+        }
+    </style>
+
+{% endblock %}
+
 {% block body %}
     <main>
-        <div class="row g-5">
-            <div class="col-4">
-                <h2>Blogs list:</h2>
-                <ul class="nav">
+        <div class="row justify-content-md-center">
+            <div class="col-6">
+                <h2>Blogs:</h2>
+                <ul class="nav mb-3 toolbar">
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="{{ path('blog_new') }}">New</a>
                     </li>
@@ -12,7 +29,7 @@
                 <ul>
                     {% for blog in blogs %}
                         <li><a href="{{ path('blog_show', {'id': blog.id}) }}">{{ blog.title }}</a> <span
-                                    class="text-muted">{{ blog.createdAt | date('d.m.Y H:i') }}</span></li>
+                                    class="date text-muted">{{ blog.createdAt | date('d.m.Y H:i') }}</span></li>
                     {% endfor %}
                 </ul>
                 {% if blogs is empty %}
