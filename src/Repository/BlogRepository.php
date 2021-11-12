@@ -47,4 +47,17 @@ class BlogRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @return Blog[]
+     */
+    public function recentBlogs(int $limit  = 5)
+    {
+        return $this->createQueryBuilder('b')
+            ->orderBy('b.createdAt', "DESC")
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getArrayResult()
+            ;
+    }
 }
