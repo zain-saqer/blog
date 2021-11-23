@@ -19,24 +19,29 @@ class Blog
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @Assert\NotBlank
      * @ORM\Column(type="string", length=255, unique=true)
      */
-    private $title;
+    private ?string $title;
 
     /**
      * @Assert\NotBlank
      * @ORM\Column(type="text")
      */
-    private $body;
+    private ?string $body;
 
     /**
      * @ORM\Column(type="datetime_immutable")
      */
-    private $createdAt;
+    private ?DateTimeImmutable $createdAt;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $mediaFilename;
 
     public function getId(): ?int
     {
@@ -75,6 +80,18 @@ class Blog
     public function setCreatedAt(DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getMediaFilename(): ?string
+    {
+        return $this->mediaFilename;
+    }
+
+    public function setMediaFilename(?string $mediaFilename): self
+    {
+        $this->mediaFilename = $mediaFilename;
 
         return $this;
     }

@@ -20,3 +20,4 @@
 ###< phpunit/phpunit ###
 
 /composer.phar
+/public/media/
